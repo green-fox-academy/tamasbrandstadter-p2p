@@ -10,6 +10,7 @@
   <span>
     <form method="post" action="/enter/add">
       <input th:type="text" name="name"/>
+         <p th:text="${error}"></p>
       <input th:type="submit" value="Enter"/>
     </form>
   </span>
