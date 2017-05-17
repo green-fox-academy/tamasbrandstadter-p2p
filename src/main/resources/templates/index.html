@@ -6,11 +6,12 @@
 </head>
 <body>
   <h1>Peer to Peer chat program</h1>
+  <p th:text="${error}"></p>
   <a href="enter.html">Your username:</a>
   <span>
-    <form method="post" action="/enter/add">
-      <input th:type="text" name="name"/>
-      <input th:type="submit" value="Enter"/>
+    <form method="get" action="/update">
+      <input th:type="text" name="newName"/>
+      <input th:type="submit" value="Update"/>
     </form>
   </span>
 </body>
