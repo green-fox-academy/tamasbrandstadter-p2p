@@ -15,10 +15,11 @@ public class MainController {
   private String error;
 
   @RequestMapping("/")
-  public String main() {
+  public String main(Model model) {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
+      model.addAttribute("error", error);
       return "index";
     }
   }
@@ -27,11 +28,11 @@ public class MainController {
   public String update(Model model, @RequestParam("newName") String newName) {
     if (newName.isEmpty()) {
       error = "The username field is empty.";
-      model.addAttribute("error", error);
       return "redirect:/";
     } else {
       User user = userRepository.findOne((long)1);
       updateExecute(user, newName);
+      error = "";
       return "redirect:/";
     }
   }
