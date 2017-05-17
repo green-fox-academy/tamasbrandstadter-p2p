@@ -19,9 +19,13 @@ public class RegisterController {
   private String error;
 
   @RequestMapping("/enter")
-  public String register(Model model){
-    model.addAttribute("error", error);
-    return "enter";
+  public String register(Model model) {
+    if (userRepository.count() > 0) {
+      return "redirect:/";
+    } else {
+      model.addAttribute("error", error);
+      return "enter";
+    }
   }
 
   @PostMapping("/enter/add")
