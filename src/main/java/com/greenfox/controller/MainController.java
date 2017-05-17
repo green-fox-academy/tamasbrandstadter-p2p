@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-  @Autowired
-  ChatMessage chatMessage;
 
   @RequestMapping("/")
   public String main() {
