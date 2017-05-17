@@ -10,7 +10,7 @@
   <a href="enter.html">Your username:</a>
   <span>
     <form method="get" action="/update">
-      <input th:type="text" name="newName"/>
+      <input th:type="text" name="newName" th:placeholder="${userName}"/>
       <input th:type="submit" value="Update"/>
     </form>
   </span>

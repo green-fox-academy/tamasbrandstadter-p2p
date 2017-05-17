@@ -20,6 +20,7 @@ public class MainController {
       return "redirect:/enter";
     } else {
       model.addAttribute("error", error);
+      model.addAttribute("userName", userRepository.findOne((long)1).getName());
       return "index";
     }
   }
