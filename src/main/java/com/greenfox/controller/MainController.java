@@ -13,6 +13,12 @@ public class MainController {
     return "index";
   }
 
+//  @RequestMapping(value = "/")
+//  public String log(Model model){
+//    System.out.println(System.getenv("CHAT_APP_LOGLEVEL"));
+//    return "index";
+//  }
+
   @ExceptionHandler(Exception.class)
   public ErrorMessage showError(Exception e) {
     System.err.println(e.getMessage());

@@ -18,9 +18,9 @@ public class RegisterController {
     return "enter";
   }
 
-  @PostMapping("/register/add")
+  @PostMapping("/enter/add")
   public String addNewUser(@RequestParam("name") String name){
     userRepository.save(new User(name));
-    return "redirect:/register/";
+    return "redirect:/enter";
   }
 }
