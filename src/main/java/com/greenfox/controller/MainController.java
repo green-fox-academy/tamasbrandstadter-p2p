@@ -32,7 +32,6 @@ public class MainController {
     } else {
       User user = userRepository.findOne((long)1);
       updateExecute(user, newName);
-              //((long)1).setName(newName);
       return "redirect:/";
     }
   }
