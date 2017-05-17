@@ -7,10 +7,10 @@
 <body>
   <h1>Register</h1>
   <p>Choose your name:</p>
+  <p th:text="${error}"></p>
   <span>
     <form method="post" action="/enter/add">
       <input th:type="text" name="name"/>
-         <p th:text="${error}"></p>
       <input th:type="submit" value="Enter"/>
     </form>
   </span>

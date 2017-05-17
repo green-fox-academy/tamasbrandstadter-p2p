@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
   @Autowired
   private UserRepository userRepository;
-  private String error = "";
+  private String error;
 
   @RequestMapping("/enter")
   public String register(Model model){
@@ -32,6 +32,8 @@ public class RegisterController {
       return "redirect:/enter";
     } else {
       userRepository.save(new User(name));
+      error = "";
+      model.addAttribute("error", error);
       return "redirect:/";
     }
   }
