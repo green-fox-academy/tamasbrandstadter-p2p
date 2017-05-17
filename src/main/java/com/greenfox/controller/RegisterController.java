@@ -13,9 +13,9 @@ public class RegisterController {
   @Autowired
   private UserRepository userRepository;
 
-  @RequestMapping("/register")
+  @RequestMapping("/enter")
   public String register(){
-    return "register";
+    return "enter";
   }
 
   @PostMapping("/register/add")
