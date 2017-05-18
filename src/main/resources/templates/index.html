@@ -13,6 +13,9 @@
       <input th:type="text" name="newName" th:placeholder="${userName}"/>
       <input th:type="submit" value="Update"/>
     </form>
+  <ul>
+    <li th:each="message:${messageList}" th:utext="${message.userName} + '&lt;br/&gt;' + ${message.message}"></li>
+  </ul>
   </span>
 </body>
 </html>

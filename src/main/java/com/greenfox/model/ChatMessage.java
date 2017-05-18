@@ -1,27 +1,34 @@
 package com.greenfox.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
+@Entity
 @Table(name= "TB_Message")
 public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  private String message;
+  long id;
+  String message;
+  String userName;
+  Timestamp timestamp;
 
-  public ChatMessage(String message){
-    this.id = id;
+  public ChatMessage(String userName, String message){
+    this.id = 1000000 + (long)(Math.random() * 9999999);
+    this.userName = userName;
     this.message = message;
+    this.timestamp = new Timestamp(System.currentTimeMillis());
   }
 
-  public Long getId() {
+  public ChatMessage() {
+
+  }
+
+  public long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -31,5 +38,9 @@ public class ChatMessage {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public String getUserName() {
+    return userName;
   }
 }
