@@ -4,8 +4,8 @@ import com.greenfox.model.ChatMessage;
 import com.greenfox.model.Log;
 import com.greenfox.model.User;
 import com.greenfox.service.ErrorMessage;
-import com.greenfox.service.MessageRepository;
-import com.greenfox.service.UserRepository;
+import com.greenfox.repository.MessageRepository;
+import com.greenfox.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +66,7 @@ public class MainController {
     userRepository.save(user);
   }
 
-  @RequestMapping("/send")
+  @PostMapping("/send")
   public String send(@RequestParam("message") String message) {
     messageRepository.save(new ChatMessage(userRepository.findOne((long)1).getName(), message));
     return "redirect:/";

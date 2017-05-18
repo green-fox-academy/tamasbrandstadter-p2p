@@ -1,9 +1,11 @@
 package com.greenfox.controller;
 
+import com.greenfox.model.ChatMessage;
 import com.greenfox.model.Log;
 import com.greenfox.model.User;
+import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.ErrorMessage;
-import com.greenfox.service.UserRepository;
+import com.greenfox.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private MessageRepository messageRepository;
   private String error;
   private static String env = System.getenv("CHAT_APP_LOGLEVEL");
 
@@ -49,6 +53,7 @@ public class RegisterController {
     } else {
       userRepository.save(new User(name));
       error = "";
+      messageRepository.save(new ChatMessage("APP", "Hi there! Submit your message using send button."));
       model.addAttribute("error", error);
       return "redirect:/";
     }

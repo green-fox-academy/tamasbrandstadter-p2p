@@ -1,4 +1,4 @@
-package com.greenfox.service;
+package com.greenfox.repository;
 
 import com.greenfox.model.User;
 import org.springframework.data.repository.CrudRepository;
