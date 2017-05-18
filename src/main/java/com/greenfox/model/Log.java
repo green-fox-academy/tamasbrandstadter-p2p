@@ -8,6 +8,7 @@ public class Log {
   private Timestamp dateAndTime;
   private String logLevel;
   private String requestData;
+  private String errorMessage;
 
   public Log() {
   }
@@ -16,7 +17,7 @@ public class Log {
     this.path = path;
     this.methodType = methodType;
     this.requestData = requestData;
-    this.dateAndTime = new Timestamp(System.currentTimeMillis() / 1000);
+    this.dateAndTime = new Timestamp(System.currentTimeMillis());
   }
 
   public String getPath() {
@@ -57,5 +58,18 @@ public class Log {
 
   public void setRequestData(String requestData) {
     this.requestData = requestData;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+  @Override
+  public String toString() {
+    return this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path + " " + this.requestData;
   }
 }
