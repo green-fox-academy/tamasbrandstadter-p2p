@@ -63,4 +63,12 @@ public class ChatMessage {
   public long generateRandomNumber() {
     return id = 1000000 + (long)(Math.random() * 1000000);
   }
+
+  public Timestamp getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(Timestamp timestamp) {
+    this.timestamp = timestamp;
+  }
 }

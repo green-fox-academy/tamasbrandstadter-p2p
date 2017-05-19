@@ -44,7 +44,7 @@ public class P2pchatApplicationTests {
     mockMvc.perform(post("/api/message/receive")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\n" +
-                    "  \"chatmessage\": {\n" +
+                    "  \"message\": {\n" +
                     "    \"id\": 7655482,\n" +
                     "    \"username\": \"EggDice\",\n" +
                     "    \"text\": \"How you doin'?\",\n" +

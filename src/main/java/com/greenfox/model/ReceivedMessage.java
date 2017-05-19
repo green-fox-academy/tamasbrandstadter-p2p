@@ -3,7 +3,7 @@ package com.greenfox.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ReceivedMessage {
-  @JsonProperty(value = "chatmessage")
+  @JsonProperty(value = "message")
   private ChatMessage chatMessage;
   @JsonProperty(value = "client")
   private Client client;
