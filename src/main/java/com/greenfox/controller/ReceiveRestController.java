@@ -15,9 +15,7 @@ public class ReceiveRestController {
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
   public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
-    ReceivedMessage receivedMessage1 = new ReceivedMessage(receivedMessage.getChatMessage(), receivedMessage.getClient());
-    ChatMessage chatMessage = new ChatMessage(receivedMessage1.getChatMessage().getUserName(),
-                                              receivedMessage1.getChatMessage().getMessage());
+    ChatMessage chatMessage = receivedMessage.getChatMessage();
     messageRepository.save(chatMessage);
     return new OkResponse();
   }

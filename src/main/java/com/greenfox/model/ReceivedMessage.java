@@ -1,7 +1,11 @@
 package com.greenfox.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ReceivedMessage {
+  @JsonProperty(value = "chatmessage")
   private ChatMessage chatMessage;
+  @JsonProperty(value = "client")
   private Client client;
 
   public ReceivedMessage(ChatMessage chatMessage, Client client){

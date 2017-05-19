@@ -1,5 +1,7 @@
 package com.greenfox.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -7,9 +9,13 @@ import java.sql.Timestamp;
 @Table(name= "TB_Message")
 public class ChatMessage {
   @Id
+  @JsonProperty(value = "id")
   private long id;
+  @JsonProperty(value = "text")
   private String message;
+  @JsonProperty(value = "username")
   private String userName;
+  @JsonProperty(value = "timestamp")
   private Timestamp timestamp;
 
   public ChatMessage(String userName, String message){
@@ -19,10 +25,10 @@ public class ChatMessage {
     this.timestamp = new Timestamp(System.currentTimeMillis());
   }
 
-  public ChatMessage(long id, String userName, String message, Timestamp timestamp) {
+  public ChatMessage(long id, String username, String text, Timestamp timestamp) {
     this.id = id;
-    this.userName = userName;
-    this.message = message;
+    this.userName = username;
+    this.message = text;
     this.timestamp = new Timestamp(System.currentTimeMillis());
   }
 
@@ -57,5 +63,4 @@ public class ChatMessage {
   public long generateRandomNumber() {
     return id = 1000000 + (long)(Math.random() * 1000000);
   }
-
 }
