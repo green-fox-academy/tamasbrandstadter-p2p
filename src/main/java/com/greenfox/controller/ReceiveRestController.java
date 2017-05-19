@@ -23,7 +23,7 @@ public class ReceiveRestController {
   @CrossOrigin("*")
   public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
     List<String> missingList = messageValidator.validateMessage(receivedMessage);
-    if (missingList.size() == 0) {
+    if (missingList.isEmpty()) {
       ChatMessage chatMessage = receivedMessage.getChatMessage();
       messageRepository.save(chatMessage);
       return new OkResponse();

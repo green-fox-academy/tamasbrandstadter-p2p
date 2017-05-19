@@ -15,11 +15,6 @@ public class MessageValidator {
   }
 
   public List<String> validateMessage(ReceivedMessage receivedMessage) {
-    if (receivedMessage.getChatMessage().getId() != 0L && !receivedMessage.getChatMessage().getMessage().isEmpty()
-            && !receivedMessage.getChatMessage().getUserName().isEmpty() && receivedMessage.getChatMessage().getTimestamp() != null
-            && !receivedMessage.getClient().getId().isEmpty()) {
-      return missingList;
-    }
     if (receivedMessage.getChatMessage().getId() == 0L) {
       missingList.add("message.id");
     }
@@ -32,7 +27,7 @@ public class MessageValidator {
     if (receivedMessage.getChatMessage().getTimestamp() == null) {
       missingList.add("message.timestamp");
     }
-    if (receivedMessage.getClient().getId().isEmpty() || receivedMessage.getClient().getId() == null) {
+    if (receivedMessage.getClient().getId().isEmpty()) {
       missingList.add("client.id");
     }
     return missingList;
