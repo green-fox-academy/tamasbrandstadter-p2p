@@ -70,10 +70,15 @@ public class MainController {
 
   @PostMapping("/send")
   public String send(@RequestParam("message") String message) {
+    Log log = new Log("/send", "REQUEST", "message=" + message);
+    if (!logLevel.equals("ERROR")) {
+      log.setLogLevel(logLevel);
+      System.out.println(log.toString());
+    }
     ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long) 1).getName(), message);
     messageRepository.save(chatMessage);
     RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(CLIENT_ID)), OkResponse.class);
+    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(CLIENT_ID)), ReceivedMessage.class);
     return "redirect:/";
   }
 

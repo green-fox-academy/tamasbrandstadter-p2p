@@ -32,7 +32,7 @@ public class ReceiveRestController {
       ChatMessage chatMessage = receivedMessage.getChatMessage();
       if (!messageRepository.exists(chatMessage.getId())) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
+        restTemplate.postForObject(URI, receivedMessage, ReceivedMessage.class);
       }
       messageRepository.save(chatMessage);
       return new OkResponse();
