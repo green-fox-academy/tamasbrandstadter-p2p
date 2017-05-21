@@ -1,9 +1,6 @@
 package com.greenfox.controller;
 
-import com.greenfox.model.ChatMessage;
-import com.greenfox.model.Log;
-import com.greenfox.model.OkResponse;
-import com.greenfox.model.User;
+import com.greenfox.model.*;
 import com.greenfox.service.ErrorMessage;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.repository.UserRepository;
@@ -78,13 +75,7 @@ public class MainController {
     ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long)1).getName(), message);
     messageRepository.save(chatMessage);
     RestTemplate restTemplate = new RestTemplate();
-    Map<String, String> uriParams = new HashMap<>();
-    uriParams.put("text", chatMessage.getMessage());
-    uriParams.put("username", chatMessage.getUserName());
-    uriParams.put("id", String.valueOf(chatMessage.getId()));
-    uriParams.put("timestamp", String.valueOf(chatMessage.getTimestamp()));
-    uriParams.put("id", clientId);
-    restTemplate.postForObject(URI, chatMessage, OkResponse.class, uriParams);
+    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(clientId)), OkResponse.class);
     return "redirect:/";
   }
 
