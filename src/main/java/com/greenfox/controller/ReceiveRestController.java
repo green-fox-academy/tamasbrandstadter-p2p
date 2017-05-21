@@ -1,9 +1,6 @@
 package com.greenfox.controller;
 
-import com.greenfox.model.ChatMessage;
-import com.greenfox.model.ErrorResponse;
-import com.greenfox.model.OkResponse;
-import com.greenfox.model.ReceivedMessage;
+import com.greenfox.model.*;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,7 @@ import java.util.List;
 
 @RestController
 public class ReceiveRestController {
+  private static String logLevelEnv = System.getenv("CHAT_APP_LOGLEVEL");
   @Autowired
   private MessageRepository messageRepository;
 
@@ -22,6 +20,11 @@ public class ReceiveRestController {
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
   public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
+    Log log = new Log("/api/message/receive", "POST", "");
+    if (!logLevelEnv.equals("ERROR")) {
+      log.setLogLevel(logLevelEnv);
+      System.out.println(log.toString());
+    }
     List<String> missingList = messageValidator.validateMessage(receivedMessage);
     if (missingList.isEmpty()) {
       ChatMessage chatMessage = receivedMessage.getChatMessage();
