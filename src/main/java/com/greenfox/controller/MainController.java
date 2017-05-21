@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 public class MainController {
   private String errorTextOnWebPage;
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
-  private final String URI = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
-  private static String clientId = System.getenv("CHAT_APP_UNIQUE_ID");
+  private static final String URI = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
+  private static final String CLIENT_ID = System.getenv("CHAT_APP_UNIQUE_ID");
   @Autowired
   private UserRepository userRepository;
   @Autowired
@@ -73,7 +73,7 @@ public class MainController {
     ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long) 1).getName(), message);
     messageRepository.save(chatMessage);
     RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(clientId)), OkResponse.class);
+    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(CLIENT_ID)), OkResponse.class);
     return "redirect:/";
   }
 
