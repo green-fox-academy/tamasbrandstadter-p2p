@@ -10,14 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class MainController {
   private String errorTextOnWebPage;
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
-  private final String URI = System.getenv("CHAT_APP_PEER_ADDRESS")+"/api/message/receive";
+  private final String URI = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
   private static String clientId = System.getenv("CHAT_APP_UNIQUE_ID");
   @Autowired
   private UserRepository userRepository;
@@ -72,7 +70,7 @@ public class MainController {
 
   @PostMapping("/send")
   public String send(@RequestParam("message") String message) {
-    ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long)1).getName(), message);
+    ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long) 1).getName(), message);
     messageRepository.save(chatMessage);
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(clientId)), OkResponse.class);

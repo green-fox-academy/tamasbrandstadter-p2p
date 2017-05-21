@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 public class ReceiveRestController {
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
-  private final String URI = System.getenv("CHAT_APP_PEER_ADDRESS")+"/api/message/receive";
+  private final String URI = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
   @Autowired
   private MessageRepository messageRepository;
 
@@ -41,7 +41,7 @@ public class ReceiveRestController {
       for (String aMissingList : missingList) {
         missingFields += aMissingList + ", ";
       }
-      return new ErrorResponse("Missing field(s): " + missingFields );
+      return new ErrorResponse("Missing field(s): " + missingFields);
     }
   }
 }
