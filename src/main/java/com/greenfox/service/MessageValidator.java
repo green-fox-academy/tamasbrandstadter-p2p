@@ -32,5 +32,9 @@ public class MessageValidator {
     }
     return missingList;
   }
+
+  public void clearList() {
+    missingList.clear();
+  }
 }
 

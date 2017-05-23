@@ -21,7 +21,7 @@ public class RegisterController {
   private UserRepository userRepository;
   @Autowired
   private MessageRepository messageRepository;
-  private String error;
+  private String errorTextOnWebPage;
   private static String env = System.getenv("CHAT_APP_LOGLEVEL");
 
   @RequestMapping("/enter")
@@ -34,7 +34,7 @@ public class RegisterController {
     if (userRepository.count() > 0) {
       return "redirect:/";
     } else {
-      model.addAttribute("error", error);
+      model.addAttribute("error", errorTextOnWebPage);
       return "enter";
     }
   }
@@ -47,14 +47,14 @@ public class RegisterController {
       System.out.println(log.toString());
     }
     if (name.isEmpty()) {
-      error = "The username field is empty.";
-      model.addAttribute("error", error);
+      errorTextOnWebPage = "The username field is empty.";
+      model.addAttribute("error", errorTextOnWebPage);
       return "redirect:/enter";
     } else {
       userRepository.save(new User(name));
-      error = "";
+      errorTextOnWebPage = "";
       messageRepository.save(new ChatMessage("APP", "Hi there! Submit your message using send button."));
-      model.addAttribute("error", error);
+      model.addAttribute("error", errorTextOnWebPage);
       return "redirect:/";
     }
   }

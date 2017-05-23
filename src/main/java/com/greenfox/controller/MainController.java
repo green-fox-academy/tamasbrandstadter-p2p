@@ -32,7 +32,7 @@ public class MainController {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
-      model.addAttribute("errorTextOnWebPage", errorTextOnWebPage);
+      model.addAttribute("error", errorTextOnWebPage);
       model.addAttribute("userName", userRepository.findOne((long) 1).getName());
       model.addAttribute("messageList", messageRepository.findAll());
       return "index";

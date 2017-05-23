@@ -2,23 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet"/>
   <title>P2P Chat</title>
 </head>
 <body>
   <h1>Peer to Peer chat program</h1>
-  <p th:text="${error}"></p>
+
   <p>Your username:</p>
   <span>
     <form method="get" action="/update">
       <input th:type="text" name="newName" th:placeholder="${userName}"/>
       <input th:type="submit" value="Update"/>
     </form>
+  <p th:text="${error}"></p>
   <ul>
     <li th:each="message:${messageList}" th:utext="${message.getUserName()} + '&lt;br/&gt;' + ${message.getMessage()}"></li>
   </ul>
