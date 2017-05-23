@@ -45,7 +45,7 @@ public class ReceiveRestController {
       for (String missing : missingList) {
         missingFields += missing + ", ";
       }
-      messageValidator.clearList();
+      //messageValidator.clearList();
       return new ErrorResponse("Missing field(s): " + missingFields);
     } else {
       return new OkResponse();
