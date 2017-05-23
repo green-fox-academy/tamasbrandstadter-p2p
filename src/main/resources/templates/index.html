@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="refresh" content="5">
+  <!--<meta http-equiv="refresh" content="5">-->
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <title>P2P Chat</title>
 </head>
 <body>
@@ -25,5 +27,6 @@
   <form>
     <input type="button" onClick="history.go(0)" th:value="Refresh"/>
   </form>
+  <script src="app.js"></script>
 </body>
 </html>

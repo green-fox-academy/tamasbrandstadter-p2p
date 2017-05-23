@@ -4,8 +4,7 @@ import com.greenfox.model.*;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,9 +21,10 @@ public class ReceiveRestController {
   @Autowired
   private MessageValidator messageValidator;
 
+  @Autowired
+  private SimpMessagingTemplate simpMessagingTemplate;
+
   @PostMapping("/api/message/receive")
-  @SendTo("/")
-  @MessageMapping("/chat")
   @CrossOrigin("*")
   public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
     Log log = new Log("/api/message/receive", "POST", "");
@@ -38,6 +38,7 @@ public class ReceiveRestController {
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
       messageRepository.save(chatMessage);
+      convertAndSend(chatMessage);
       return new OkResponse();
     } else if (!missingList.isEmpty()) {
       String missingFields = "";
@@ -48,6 +49,10 @@ public class ReceiveRestController {
     } else {
       return new OkResponse();
     }
+  }
+
+  public void convertAndSend(ChatMessage chatMessage) {
+    simpMessagingTemplate.convertAndSend("/topic", chatMessage);
   }
 }
 
