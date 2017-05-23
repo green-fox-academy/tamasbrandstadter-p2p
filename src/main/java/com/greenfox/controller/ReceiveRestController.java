@@ -4,6 +4,8 @@ import com.greenfox.model.*;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class ReceiveRestController {
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
   private static final String URI = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
+  private static final String CLIENT_ID = System.getenv("CHAT_APP_UNIQUE_ID");
   @Autowired
   private MessageRepository messageRepository;
 
@@ -20,6 +23,8 @@ public class ReceiveRestController {
   private MessageValidator messageValidator;
 
   @PostMapping("/api/message/receive")
+  @SendTo("/")
+  @MessageMapping("/chat")
   @CrossOrigin("*")
   public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
     Log log = new Log("/api/message/receive", "POST", "");
@@ -28,20 +33,20 @@ public class ReceiveRestController {
       System.out.println(log.toString());
     }
     List<String> missingList = messageValidator.validateMessage(receivedMessage);
-    if (missingList.isEmpty()) {
+    if (missingList.isEmpty() && !receivedMessage.getClient().getId().equals(CLIENT_ID)) {
       ChatMessage chatMessage = receivedMessage.getChatMessage();
-      if (!messageRepository.exists(chatMessage.getId())) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
-      }
+      RestTemplate restTemplate = new RestTemplate();
+      restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
       messageRepository.save(chatMessage);
       return new OkResponse();
-    } else {
+    } else if (!missingList.isEmpty()) {
       String missingFields = "";
       for (String missing : missingList) {
         missingFields += missing + ", ";
       }
       return new ErrorResponse("Missing field(s): " + missingFields);
+    } else {
+      return new OkResponse();
     }
   }
 }
