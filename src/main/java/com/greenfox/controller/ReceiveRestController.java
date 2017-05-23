@@ -36,16 +36,16 @@ public class ReceiveRestController {
     if (missingList.isEmpty() && !receivedMessage.getClient().getId().equals(CLIENT_ID)) {
       ChatMessage chatMessage = receivedMessage.getChatMessage();
       RestTemplate restTemplate = new RestTemplate();
-      restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
       messageRepository.save(chatMessage);
       convertAndSend(chatMessage);
+      restTemplate.postForObject(URI, receivedMessage, OkResponse.class);
       return new OkResponse();
     } else if (!missingList.isEmpty()) {
       String missingFields = "";
       for (String missing : missingList) {
         missingFields += missing + ", ";
       }
-      //messageValidator.clearList();
+      messageValidator.clearList();
       return new ErrorResponse("Missing field(s): " + missingFields);
     } else {
       return new OkResponse();
