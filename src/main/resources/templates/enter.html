@@ -12,14 +12,25 @@
   <h1 class="well">Register</h1>
   <div class="container">
     <span th:if="${error} == 'The username field is empty.'"><p class="alert-danger" th:text="${error}"></p></span>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p>User</p>
+            </div>
+            <div class="panel-body">
+              <strong>Choose your username:</strong>
+              <span>
+                <form method="post" action="/enter/add">
+                <input th:type="text" name="name"/>
+                <button class="btn btn-primary" th:type="submit">Enter</button>
+                </form>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
-  <p>Choose your name:</p>
-  <span>
-    <form method="post" action="/enter/add">
-      <input th:type="text" name="name"/>
-      <button class="btn btn-primary" th:type="submit">Enter</button>
-    </form>
-  </span>
   <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
   <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 </body>
