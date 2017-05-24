@@ -11,25 +11,33 @@
   <title>P2P Chat</title>
 </head>
 <body>
-  <h1>Peer to Peer chat program</h1>
-  <p th:text="${error}"></p>
-  <p>Your username:</p>
-  <span>
+  <h1 class="container">Peer to Peer chat program</h1>
+  <div class="container">
+    <span th:if="${error} == 'The username field is empty.'"><p class="alert-danger" th:text="${error}"></p></span>
+  </div>
+  <div class="container">
+    <p class="well">Your username:</p>
+  </div>
+  <div class="container">
     <form method="get" action="/update">
       <input th:type="text" name="newName" th:placeholder="${userName}"/>
-      <input th:type="submit" value="Update"/>
+      <button class="btn btn-primary" th:type="submit">Update</button>
     </form>
-  <ul>
-    <li th:each="message:${messageList}" th:utext="${message.getUserName()} + '&lt;br/&gt;' + ${message.getMessage()}"></li>
-  </ul>
-  </span>
-  <form method="post" action="/send">
-    <input type="text"  name="message"/>
-    <button type="submit">Send</button>
-  </form>
-  <form>
-    <input type="button" onClick="history.go(0)" th:value="Refresh"/>
-  </form>
+  </div>
+  <div class="container">
+    <ul>
+      <li th:each="message:${messageList}" th:utext="${message.getUserName()} + '&lt;br/&gt;' + ${message.getMessage()}"></li>
+    </ul>
+  </div>
+  <div class="container">
+    <form method="post" action="/send">
+      <input type="text"  name="message"/>
+      <button class="btn btn-primary" th:type="submit">Send</button>
+    </form>
+    <form>
+      <input type="button" onClick="history.go(0)" th:value="Refresh"/>
+    </form>
+  </div>
   <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
   <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
