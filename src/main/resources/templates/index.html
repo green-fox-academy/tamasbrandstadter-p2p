@@ -8,6 +8,7 @@
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet"/>
+  <link href="mystyle.css" rel="stylesheet"/>
   <title>P2P Chat Main Page</title>
 </head>
 <body>
@@ -46,11 +47,8 @@
             </ul>
             <p><strong>Message:</strong></p>
             <form method="post" action="/send">
-              <input type="text"  name="message"/>
+              <input class="inputclass" type="text"  name="message"/>
               <button class="btn btn-primary" th:type="submit">Send</button>
-            </form>
-            <form>
-              <input type="button" onClick="history.go(0)" th:value="Refresh"/>
             </form>
           </div>
         </div>

@@ -1,5 +1,10 @@
-.panel {
-    border: 1px solid transparent;
+.well {
+    margin-top: 0;
+}
+
+img {
+    height: 35%;
+    width: 35%;
 }
 
 .alert-danger {
@@ -8,6 +13,7 @@
     padding: 15px;
 }
 
-.h1 well {
-    margin-top: 0px;
+.inputclass {
+    width: 80%;
+    padding: 3px;
 }
