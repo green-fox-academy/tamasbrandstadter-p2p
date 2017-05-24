@@ -78,7 +78,7 @@ public class MainController {
     ChatMessage chatMessage = new ChatMessage(userRepository.findOne((long) 1).getName(), message);
     messageRepository.save(chatMessage);
     RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(CLIENT_ID)), ReceivedMessage.class);
+    restTemplate.postForObject(URI, new ReceivedMessage(chatMessage, new Client(CLIENT_ID)), OkResponse.class);
     return "redirect:/";
   }
 
