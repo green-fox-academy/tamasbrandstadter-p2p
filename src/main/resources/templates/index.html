@@ -8,7 +8,7 @@
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet"/>
-  <title>P2P Chat</title>
+  <title>P2P Chat Main Page</title>
 </head>
 <body>
   <h1 class="container">Peer to Peer chat program</h1>
@@ -16,13 +16,22 @@
     <span th:if="${error} == 'The username field is empty.'"><p class="alert-danger" th:text="${error}"></p></span>
   </div>
   <div class="container">
-    <p class="well">Your username:</p>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>User</p>
+        </div>
+        <div class="panel-body">
+          <strong>Your username:</strong>
+          <form method="get" action="/update">
+            <input th:type="text" name="newName" th:placeholder="${userName}"/>
+            <button class="btn btn-primary" th:type="submit">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="container">
-    <form method="get" action="/update">
-      <input th:type="text" name="newName" th:placeholder="${userName}"/>
-      <button class="btn btn-primary" th:type="submit">Update</button>
-    </form>
   </div>
   <div class="container">
     <ul>
