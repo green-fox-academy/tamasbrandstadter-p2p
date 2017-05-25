@@ -1,19 +1,18 @@
 package com.greenfox.controller;
 
 import com.greenfox.model.ChatMessage;
-import com.greenfox.model.Log;
 import com.greenfox.model.User;
 import com.greenfox.repository.MessageRepository;
-import com.greenfox.service.ErrorMessage;
 import com.greenfox.repository.UserRepository;
+import com.greenfox.service.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegisterController {
@@ -22,14 +21,10 @@ public class RegisterController {
   @Autowired
   private MessageRepository messageRepository;
   private String errorTextOnWebPage;
-  private static String env = System.getenv("CHAT_APP_LOGLEVEL");
 
   @RequestMapping("/enter")
-  public String register(Model model) {
-    Log log = new Log("/enter", "REQUEST", "");
-    if (!env.equals("ERROR")) {
-      log.showLog();
-    }
+  public String register(Model model, HttpServletRequest request) {
+    Logger.showLogWithOutParameter(request);
     if (userRepository.count() > 0) {
       return "redirect:/";
     } else {
@@ -39,11 +34,8 @@ public class RegisterController {
   }
 
   @PostMapping("/enter/add")
-  public String addNewUser(Model model, @RequestParam("name") String name) {
-    Log log = new Log("/enter/add", "POST", "name=" + name);
-    if (!env.equals("ERROR")) {
-      log.showLog();
-    }
+  public String addNewUser(HttpServletRequest request, @RequestParam("name") String name) {
+    Logger.showLog(request, "name=" + name);
     if (name.isEmpty()) {
       errorTextOnWebPage = "The username field is empty.";
       return "redirect:/enter";
@@ -52,15 +44,5 @@ public class RegisterController {
       messageRepository.save(new ChatMessage("APP", "Hi there! Submit your message using send button."));
       return "redirect:/";
     }
-  }
-
-  @ExceptionHandler(MissingServletRequestParameterException.class)
-  public ErrorMessage showError(MissingServletRequestParameterException e) {
-    Log log = new Log();
-    log.setLogLevel("ERROR");
-    log.setErrorMessage(e.getMessage());
-    System.out.println(log.getErrorMessage());
-    log.showLog();
-    return new ErrorMessage("Missing servlet parameter exception.");
   }
 }

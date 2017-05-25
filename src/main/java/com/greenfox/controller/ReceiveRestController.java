@@ -3,11 +3,13 @@ package com.greenfox.controller;
 import com.greenfox.model.*;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.Forward;
+import com.greenfox.service.Logger;
 import com.greenfox.service.MessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -25,11 +27,8 @@ public class ReceiveRestController {
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
-  public Object receiveMessage(@RequestBody ReceivedMessage receivedMessage) {
-    Log log = new Log("/api/message/receive", "POST", "");
-    if (!logLevel.equals("ERROR")) {
-      log.showLog();
-    }
+  public Object receiveMessage(HttpServletRequest request, @RequestBody ReceivedMessage receivedMessage) {
+    Logger.showLogWithOutParameter(request);
     List<String> missingList = messageValidator.validateMessage(receivedMessage);
     if (missingList.isEmpty() && !receivedMessage.getClient().getId().equals(CLIENT_ID)) {
       ChatMessage chatMessage = receivedMessage.getChatMessage();

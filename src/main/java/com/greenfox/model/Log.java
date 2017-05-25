@@ -8,7 +8,6 @@ public class Log {
   private Timestamp dateAndTime;
   private String logLevel;
   private String requestData;
-  private String errorMessage;
 
   public Log() {
   }
@@ -17,7 +16,14 @@ public class Log {
     this.path = path;
     this.methodType = methodType;
     this.requestData = requestData;
-    this.logLevel = "INFO";
+    this.logLevel = System.getenv("CHAT_APP_LOGLEVEL");
+    this.dateAndTime = new Timestamp(System.currentTimeMillis());
+  }
+
+  public Log(String path, String methodType) {
+    this.path = path;
+    this.methodType = methodType;
+    this.logLevel = System.getenv("CHAT_APP_LOGLEVEL");
     this.dateAndTime = new Timestamp(System.currentTimeMillis());
   }
 
@@ -61,15 +67,11 @@ public class Log {
     this.requestData = requestData;
   }
 
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
   public void showLog() {
-    System.out.println(this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path + " " + this.requestData);
+    if (this.requestData == null) {
+      System.out.println(this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path);
+    } else {
+      System.out.println(this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path + " " + this.requestData);
+    }
   }
 }
