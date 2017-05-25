@@ -29,7 +29,7 @@ public class RegisterController {
     Log log = new Log("/enter", "REQUEST", "");
     if (!env.equals("ERROR")) {
       log.setLogLevel(env);
-      System.out.println(log.toString());
+      log.showLog();
     }
     if (userRepository.count() > 0) {
       return "redirect:/";
@@ -44,7 +44,7 @@ public class RegisterController {
     Log log = new Log("/enter/add", "POST", "name=" + name);
     if (!env.equals("ERROR")) {
       log.setLogLevel(env);
-      System.out.println(log.toString());
+      log.showLog();
     }
     if (name.isEmpty()) {
       errorTextOnWebPage = "The username field is empty.";
@@ -65,7 +65,7 @@ public class RegisterController {
     log.setLogLevel("ERROR");
     log.setErrorMessage(e.getMessage());
     System.out.println(log.getErrorMessage());
-    System.out.println(log.toString());
+    log.showLog();
     return new ErrorMessage("Missing servlet parameter exception.");
   }
 }

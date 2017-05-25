@@ -17,6 +17,7 @@ public class Log {
     this.path = path;
     this.methodType = methodType;
     this.requestData = requestData;
+    this.logLevel = "INFO";
     this.dateAndTime = new Timestamp(System.currentTimeMillis());
   }
 
@@ -68,8 +69,7 @@ public class Log {
     this.errorMessage = errorMessage;
   }
 
-  @Override
-  public String toString() {
-    return this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path + " " + this.requestData;
+  public void showLog() {
+    System.out.println(this.dateAndTime + " " + this.logLevel + " " + this.methodType + " " + this.path + " " + this.requestData);
   }
 }

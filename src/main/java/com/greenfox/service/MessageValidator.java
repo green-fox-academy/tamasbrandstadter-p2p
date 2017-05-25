@@ -36,5 +36,13 @@ public class MessageValidator {
   public void clearList() {
     missingList.clear();
   }
+
+  public String getMissingFields(List<String> missingList) {
+    String missingFields = "";
+    for (String missing : missingList) {
+      missingFields += missing + ", ";
+    }
+    return missingFields;
+  }
 }
 
