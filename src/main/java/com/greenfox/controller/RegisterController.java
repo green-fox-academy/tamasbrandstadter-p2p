@@ -28,7 +28,6 @@ public class RegisterController {
   public String register(Model model) {
     Log log = new Log("/enter", "REQUEST", "");
     if (!env.equals("ERROR")) {
-      log.setLogLevel(env);
       log.showLog();
     }
     if (userRepository.count() > 0) {
@@ -43,18 +42,14 @@ public class RegisterController {
   public String addNewUser(Model model, @RequestParam("name") String name) {
     Log log = new Log("/enter/add", "POST", "name=" + name);
     if (!env.equals("ERROR")) {
-      log.setLogLevel(env);
       log.showLog();
     }
     if (name.isEmpty()) {
       errorTextOnWebPage = "The username field is empty.";
-      model.addAttribute("error", errorTextOnWebPage);
       return "redirect:/enter";
     } else {
       userRepository.save(new User(name));
-      errorTextOnWebPage = "";
       messageRepository.save(new ChatMessage("APP", "Hi there! Submit your message using send button."));
-      model.addAttribute("error", errorTextOnWebPage);
       return "redirect:/";
     }
   }
