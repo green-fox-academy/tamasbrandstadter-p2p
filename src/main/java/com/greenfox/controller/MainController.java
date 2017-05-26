@@ -15,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
   private String errorTextOnWebPage;
+  private final UserRepository userRepository;
+  private final MessageRepository messageRepository;
+  private final Broadcast broadcast;
+
   @Autowired
-  private UserRepository userRepository;
-  @Autowired
-  private MessageRepository messageRepository;
-  @Autowired
-  private Broadcast broadcast;
+  public MainController(UserRepository userRepository, MessageRepository messageRepository, Broadcast broadcast) {
+    this.userRepository = userRepository;
+    this.messageRepository = messageRepository;
+    this.broadcast = broadcast;
+  }
 
   @RequestMapping("/")
   public String main(Model model, HttpServletRequest request) {

@@ -14,16 +14,20 @@ import java.util.List;
 
 @RestController
 public class ReceiveRestController {
-  private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
   private static final String CLIENT_ID = System.getenv("CHAT_APP_UNIQUE_ID");
+  private final MessageRepository messageRepository;
+  private final MessageValidator messageValidator;
+  private final SimpMessagingTemplate simpMessagingTemplate;
+  private final Forward forward;
+
   @Autowired
-  private MessageRepository messageRepository;
-  @Autowired
-  private MessageValidator messageValidator;
-  @Autowired
-  private SimpMessagingTemplate simpMessagingTemplate;
-  @Autowired
-  private Forward forward;
+  public ReceiveRestController(MessageRepository messageRepository, MessageValidator messageValidator,
+                               SimpMessagingTemplate simpMessagingTemplate, Forward forward) {
+    this.messageRepository = messageRepository;
+    this.messageValidator = messageValidator;
+    this.simpMessagingTemplate = simpMessagingTemplate;
+    this.forward = forward;
+  }
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")

@@ -16,11 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegisterController {
-  @Autowired
-  private UserRepository userRepository;
-  @Autowired
-  private MessageRepository messageRepository;
+  private final UserRepository userRepository;
+  private final MessageRepository messageRepository;
   private String errorTextOnWebPage;
+
+  @Autowired
+  public RegisterController(UserRepository userRepository, MessageRepository messageRepository) {
+    this.userRepository = userRepository;
+    this.messageRepository = messageRepository;
+  }
 
   @RequestMapping("/enter")
   public String register(Model model, HttpServletRequest request) {
